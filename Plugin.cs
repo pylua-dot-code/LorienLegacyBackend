@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using UnityEngine;
 using Utilla;
-
 namespace llgtag_backend
 {
     [ModdedGamemode]
@@ -17,32 +16,17 @@ namespace llgtag_backend
         {
             w.Write("\r\nLog Entry : ");
             w.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
-            w.WriteLine("  :");
+            w.WriteLine("  |");
             w.WriteLine($"  :{logMessage}");
-            w.WriteLine("-------------------------------");
+            w.WriteLine("__________________________________");
         }
-
-        public static void customLoggerDump(StreamReader r)
-        {
-            string line;
-            while ((line = r.ReadLine()) != null)
-            {
-                Console.WriteLine(line);
-            }
-        }
-
         void Start()
-        {
-
-            Utilla.Events.GameInitialized += OnGameInitialized;
-        }
-
-        void OnGameInitialized(object sender, EventArgs e)
         {
             using (StreamWriter w = File.AppendText("lorienlegaciesmod.log"))
             {
                 customLogger("Lorien Legacies Gamemode Initalized", w);
             }
+            Utilla.Events.GameInitialized += OnGameInitialized;
         }
     }
 }
